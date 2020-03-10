@@ -28,12 +28,13 @@
     ],
     "prefer-const": true,
     "prefer-for-of": false,
-    "prefer-function-over-method": true,
+    "prefer-function-over-method": false,
     "prefer-object-spread": true,
     "prefer-readonly": true,
     "prefer-template": true,
     "prettier": true,
     "switch-default": true,
-    "variable-name": [true, "allow-leading-underscore", "ban-keywords", "check-format", "allow-pascal-case"]
+    "variable-name": [true, "allow-leading-underscore", "ban-keywords", "check-format", "allow-pascal-case"],
+    "ban-types": false
   }
 }

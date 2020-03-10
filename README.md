@@ -1,18 +1,50 @@
-# typescript-library-boilerplate
+# Jest mock extension
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/maxdavidson/typescript-library-boilerplate.svg)](https://greenkeeper.io/)
+## Mock a class
 
-[![Build Status](https://img.shields.io/travis/maxdavidson/typescript-library-boilerplate/master.svg)](https://travis-ci.org/maxdavidson/typescript-library-boilerplate)
-[![Coverage Status](https://img.shields.io/coveralls/maxdavidson/typescript-library-boilerplate/master.svg)](https://coveralls.io/github/maxdavidson/typescript-library-boilerplate?branch=master)
-[![Dependency Status](https://img.shields.io/david/maxdavidson/typescript-library-boilerplate.svg)](https://david-dm.org/maxdavidson/typescript-library-boilerplate)
-[![devDependency Status](https://img.shields.io/david/dev/maxdavidson/typescript-library-boilerplate.svg)](https://david-dm.org/maxdavidson/typescript-library-boilerplate?type=dev)
+This would be useful in `Angular` and `NestJS` testing.
 
-Opinionated boilerplate for TypeScript libraries.
+Plain class test:
+```
+const SampleServiceMockClass: Type<ClassMock<SampleService>> = mockClass(SampleService);
+const sampleServiceMock: ClassMock<SampleService> = new SampleServiceMockClass();
+```
 
-## Features
+Angular test:
+```
+let cookieService: ClassMock<CookieService>;
 
-- [TypeScript](http://www.typescriptlang.org)
-- Linting with [tslint](http://palantir.github.io/tslint/)
-- Module bundling with [Rollup](http://rollupjs.org)
-- Unit testing with [Jest](https://github.com/facebook/jest)
-- Continuous integration with [Travis](https://travis-ci.org)
+beforeEach(async () => {
+    TestBed.configureTestingModule({
+      providers: [
+        TrackingIdService,
+        {
+          provide: CookieService,
+          useClass: mockClass(CookieService)
+        }
+      ]
+    });
+    cookieService = TestBed.get(CookieService);
+});
+```
+
+NestJS test:
+```
+let module: TestingModule;
+let loggerService: ClassMock<LoggerService>;
+
+beforeEach(async () => {
+    module = await Test.createTestingModule({
+      controllers: [],
+      providers: [
+        ConfigService,
+        {
+          provide: LoggerService,
+          useClass: mockClass(LoggerService),
+        },
+      ],
+    }).compile();
+
+    loggerService = module.get(LoggerService);
+});
+```

@@ -1,5 +1,7 @@
 // Declare stuff here
 
-declare module 'some-module' {
-  export function doStuff(): void;
+import { ClassMock, Type } from './class-mock';
+
+declare module 'jest-extension' {
+  export function mockClass<Class>(service: Type<Class>): Type<ClassMock<Class>>;
 }
